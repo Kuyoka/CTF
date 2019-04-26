@@ -1,2 +1,2 @@
 # CTF
-Capture 
+Capture The Flag
