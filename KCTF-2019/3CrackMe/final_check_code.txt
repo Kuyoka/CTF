@@ -1,0 +1,68 @@
+int __usercall sub_0@<eax>(unsigned __int8 *a1@<esi>)
+{
+  __int16 n_d_e; // ST5C_2
+  __int16 n_9_a; // ST58_2
+  __int16 n_b_c; // di
+  __int16 v4; // ST4C_2
+  int v5; // edi
+  __int16 n_f_0; // ST54_2
+  __int16 n_5_6; // ST60_2
+  int n_1_2; // edx
+  __int16 v9; // ST44_2
+  int n_7_8; // ebx
+  int n_3_4; // ecx
+  int v12; // ST48_4
+  int v13; // ST3C_4
+  unsigned int v14; // eax
+  __int16 v15; // ST60_2
+  int v16; // ST50_4
+  int v17; // edx
+  int v18; // eax
+  int v19; // eax
+  __int16 v20; // ST00_2
+  __int16 v21; // ST5C_2
+  int v22; // ecx
+  int result; // eax
+
+  n_d_e = a1[0x1BD] + (a1[0x1BE] << 8);
+  n_9_a = a1[0x1B9] + (a1[0x1BA] << 8);
+  n_b_c = a1[0x1BB] + (a1[0x1BC] << 8);
+  v4 = n_b_c;
+  v5 = (unsigned __int16)(n_b_c - n_9_a);
+  n_f_0 = a1[0x1BF] + (a1[0x1B0] << 8);
+  n_5_6 = a1[0x1B5] + (a1[0x1B6] << 8);
+  n_1_2 = (unsigned __int16)(a1[0x1B2] << 8);
+  LOWORD(n_1_2) = a1[0x1B1] + (_WORD)n_1_2;
+  v9 = n_1_2;
+  n_7_8 = (a1[0x1B8] << 8) + a1[0x1B7];
+  n_3_4 = a1[0x1B4] << 8;
+  LOWORD(n_3_4) = a1[0x1B3] + (_WORD)n_3_4;
+  v12 = n_3_4;
+  v13 = (n_1_2 ^ n_3_4) & 0xFFFF;
+  v14 = (unsigned __int16)(((((n_5_6 ^ n_7_8) & 0x5555) + (((unsigned __int16)(n_5_6 ^ n_7_8) >> 1) & 0x5555)) & 0x3333)
+                         + (((unsigned __int16)(((n_5_6 ^ n_7_8) & 0x5555)
+                                              + (((unsigned __int16)(n_5_6 ^ n_7_8) >> 1) & 0x5555)) >> 2) & 0x3333));
+  LOWORD(n_3_4) = ((unsigned __int16)((v14 & 0xF0F) + ((v14 >> 4) & 0xF0F)) >> 8)
+                + (unsigned __int8)((v14 & 0xF) + ((v14 >> 4) & 0xF));
+  LOWORD(v14) = v5 & ~(_WORD)v13 | v13 & (n_f_0 + n_d_e);
+  v15 = __ROL2__(v14 ^ n_5_6, n_3_4);
+  LOWORD(n_7_8) = __ROL2__(v14 ^ n_7_8, n_3_4);
+  v16 = (unsigned __int16)v14;
+  v17 = (unsigned __int16)((v13 * (unsigned int)(unsigned __int16)v14 >> n_3_4) + 24) + 4381273;
+  v18 = v17;
+  v17 -= 4381273;
+  v19 = v5 ^ (v18 - 4381273);
+  v20 = v5 & ~(_WORD)v13 | v13 & (n_f_0 + n_d_e) | v17;
+  v21 = n_d_e - v19;
+  v22 = v16 & v17 | (unsigned __int16)(v19 & v20);
+  *((_WORD *)a1 + 0xDD) = v17 + n_9_a;
+  *((_WORD *)a1 + 0xDA) = v19 + n_f_0;
+  result = v12 ^ v22;
+  *((_WORD *)a1 + 0xD9) = v9 ^ v22;
+  *((_WORD *)a1 + 0xDE) = n_7_8;
+  *((_WORD *)a1 + 0xDB) = v21;
+  *((_WORD *)a1 + 0xDC) = v17 + v4;
+  *((_WORD *)a1 + 0xD8) = v12 ^ v22;
+  *((_WORD *)a1 + 0xDF) = v15;
+  return result;
+}

@@ -1,0 +1,58 @@
+dbh
+bph 004014E0	//first call eax
+erun
+bphc 004014E0
+
+mov $call_cnt, 0	//define call count
+mov $max_cnt, 578	//define max iteration count
+bph fs:[18]+8, w, 4	//hardware bp
+
+start:
+erun
+find cip, FFD0, 100	//find call eax
+cmp $RESULT, 0
+jnz call_loop
+find cip, E801000000, 100	//find E8 01000000
+cmp $RESULT, 0
+jnz call_loop
+jmp end
+
+
+call_loop:
+erun $RESULT
+sti
+inc $call_cnt
+log "Hit {$call_cnt}"	//print call_cnt
+cmp $call_cnt, $max_cnt
+jz last_call
+jmp start
+
+
+last_call:
+sti
+rtr
+sto
+find cip, 0F85????????, 200
+mov $next, $result
+cmp $next, 0
+jz end
+erun $next+6
+find cip, FFD0, 100
+mov $next, $result
+cmp $next, 0
+jz end
+erun $next
+
+sti
+sto
+erun cip+26
+savedata "c:\dump\dump.bin",cip,3454
+
+
+
+end:
+bphc fs:[18]+8
+msg "end!!!"
+
+
+
